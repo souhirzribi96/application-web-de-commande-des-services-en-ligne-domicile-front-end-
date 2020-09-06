@@ -1,0 +1,401 @@
+<div class="container">
+    <div id="signInSignUpBox">
+        <div id="overlay">
+            <div id="overlayInner">
+                <div id="signUp">
+                    <h1>Bienvenue !</h1>
+                    <p>Entrez vos informations personnelles et commencez votre journé avec nous.</p>
+                    <button (click)='moveSliderRight()'>S'inscrire</button>
+                </div>
+                <div id="signIn">
+                    <h1>Bienvenue de retour!</h1>
+                    <p>Pour rester connecté avec nous, veuillez vous connecter avec vos informations personnelles.</p>
+                    <button (click)='moveSliderLeft()'>Se connecter</button>
+                </div>
+            </div>
+        </div>
+        <div id="forms">
+            <div class='shiftRight' id="signInForm">
+                <div class="holder">
+                    <h1>S'inscrire</h1>
+                    <hr>
+                    <div id="pre">Vous voulez s'inscrire en tant que </div>
+                    <div class="img-plus-moins" id="button1" onclick="document.getElementById('foo').className='quantite-clic';
+                                             document.getElementById('butt').className='quantite-cl';
+                                             document.getElementById('button1').className='quantite-cl';
+                                             document.getElementById('form').className='quantite-cl';
+                                             document.getElementById('pre').className='quantite-cl'"
+                    >
+                        <button class="bouton-aligne">Un client</button>
+                    </div>
+
+                    <div class="img-plus-moins" id="butt" onclick="document.getElementById('form').className='quantite-clic';
+                                             document.getElementById('button1').className='quantite-cl';
+                                             document.getElementById('butt').className='quantite-cl';
+                                             document.getElementById('foo').className='quantite-cl';
+                                             document.getElementById('pre').className='quantite-cl'"
+
+                    >
+                        <button>Un étudiant</button>
+                    </div>
+<!------------fomulaire etudiant--------------------------------------------------------------------------------------------------------------->
+
+                    <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmitet()" *ngIf="!isSuccessful" id="form"
+                          name="form" novalidate>
+                        <P  style="color: #ff5642">VOUS ETES UN ETUDIANT</P>
+
+                        <div class="form-group">
+                            <!-- Main content -->
+                            <section class="content">
+                                <div class="form-row">
+
+                                    <div class="col"  >
+                                        <!-- Profile Image -->
+                                                    <div class="avatar-upload">
+                                                        <div class="avatar-preview">
+                                                            <i *ngIf="image" class="fa fa-times delete-img" (click)="removeImage()"></i>
+                                                            <img class="profile-user-img img-responsive rounded-circle" id="imagePreview"
+                                                                 [attr.src]="image" *ngIf="image" width="100%" >
+                                                             <img src="../../../assets/profile-male-circle2-512.png" *ngIf="!image" width="100px " class="rounded-circle">
+                                                        </div>
+                                                        <div class="avatar-edit">
+                                                            <input type="file" (change)="fileChange(input)" #input class="img-upload-btn" id="imageUpload" />
+                                                            <label for="imageUpload"></label>
+                                                            <p>Ajouter votre photo</p>
+                                                        </div>
+                                            </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-row">
+                                            <input #username="ngModel" [(ngModel)]="forms.username" maxlength="20" minlength="3"
+                                                   name="Login" placeholder='Pseudo*' required type="text"/>
+                                            <div *ngIf="f.submitted && username.invalid" class="alert-danger align-content-center">
+                                                <div *ngIf="username.errors.required">Pseudo est requise</div>
+                                                <div *ngIf="username.errors.minlength">Pseudo doit contenir au moins 3 caractères</div>
+                                                <div *ngIf="username.errors.maxlength">Pseudo doit contenir au plus 20 caractères</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row" style="margin-right: 30px; margin-left: -22px">
+                                        <div class="col" >
+                                            <input [(ngModel)]="forms.nom" name="nom" placeholder="Nom"  type="text">
+                                        </div>
+                                            <div class="col">
+                                                <input [(ngModel)]="forms.prenom" name="prenom" placeholder="Prenom" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row"  style="margin-right: 30px; margin-left: -22px">
+                                            <div class="col">
+                                            <input  #cin="ngModel"[(ngModel)]="forms.cin" name="cin" placeholder='CIN*' required type="text" minlength="8" maxlength="8"/>
+                                            <div *ngIf="f.submitted && cin.invalid" class="alert-danger align-content-center">
+                                                <div *ngIf="cin.errors.required">CIN est requise</div>
+                                                <div *ngIf="cin.errors.maxlength">CIN doit contenir 8 variable</div>
+                                                <div *ngIf="cin.errors.minlength">CIN doit contenir 8 variable</div>
+                                            </div>
+                                            </div>
+                                            <div class="col">
+                                                <select [(ngModel)]="forms.sexe" class="form-control custom-select" name="sexe" style="width:90px;height: 50px">
+                                                    <option disabled selected>Sexe:</option>
+                                                    <option>Féminin</option>
+                                                    <option>Masculin</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row" >
+                                                    <input class="form-control" placeholder="dd/mm/yyyy"
+                                                           name="d2" #c2="ngModel" [(ngModel)]="forms.datenais" ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()">
+                                        </div>
+                                        </div>
+                                </div>
+                            </section>
+                         </div>
+
+                    <div class="form-group">
+                        <div class=" form-row" style="margin-right: 30px; margin-left: 22px">
+                                <div class=" col">
+                                <input #email="ngModel" [(ngModel)]="forms.email" email name="Email" placeholder='Email*'
+                                       required
+                                       type="email"/>
+                                <div *ngIf="f.submitted && email.invalid" class="alert-danger">
+                                    <div *ngIf="email.errors.required">Email est requise</div>
+                                    <div *ngIf="email.errors.email">Ce champ doit contenir un Email</div>
+                                </div>
+                            </div>
+                            <div class=" col">
+                                <input #password="ngModel" [(ngModel)]="forms.password" minlength="6" name="password"
+                                       placeholder='Mot de passe*'
+                                       required type="password"/>
+                                <div *ngIf="f.submitted && password.invalid" class="alert-danger">
+                                    <div *ngIf="password.errors.required">Mot de passe est requise</div>
+                                    <div *ngIf="password.errors.minlength">Mot de passe doit être au moins 6 caractères</div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class=" form-row ">
+                                <div class="col">
+                                <input  #tel="ngModel"[(ngModel)]="forms.tel" name="tel" placeholder='Télèphone*' required type="text" minlength="8" maxlength="8"/>
+                                <div *ngIf="f.submitted && tel.invalid" class="alert-danger align-content-center">
+                                    <div *ngIf="tel.errors.required">Télèphone est requise</div>
+                                    <div *ngIf="tel.errors.maxlength">Télèphone doit contenir 8 variable</div>
+                                    <div *ngIf="tel.errors.minlength">Télèphone doit contenir 8 variable</div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class=" form-row" style="margin-right: 30px; margin-left: 22px">
+                                <div class=" col">
+                                    <select [(ngModel)]="forms.ville" class="form-control custom-select" name="ville"
+                                            style="width:165px;height: 50px">
+                                        <option disabled selected value="Please select value">Votre ville</option>
+                                        <option>Ariana</option>
+                                        <option>Tunis</option>
+                                        <option>Gabès</option>
+                                        <option>Bizerte</option>
+                                        <option> Ben Arous</option>
+                                        <option>Béja</option>
+                                        <option>Gafsa</option>
+                                        <option>Jendouba</option>
+                                        <option>Kairouan</option>
+                                        <option>Kasserine</option>
+                                        <option>Kébili</option>
+                                        <option>Mahdia</option>
+                                        <option>Manouba</option>
+                                        <option>Médenine</option>
+                                        <option>Monastir</option>
+                                        <option>Nabeul</option>
+                                        <option>Sfax</option>
+                                        <option>Sidi Bouzid</option>
+                                        <option>Siliana</option>
+                                        <option>Sousse</option>
+                                        <option>Tataouine</option>
+                                        <option>Tozeur</option>
+                                        <option>Gafsa</option>
+                                        <option>Zaghouan</option>
+                                    </select>
+                                </div>
+                                <div class=" col">
+                                    <input  #univ="ngModel" [(ngModel)]="forms.universite" name="univeriste" placeholder="Université d'étude"
+                                            type="text" required/>
+                                    <div *ngIf="f.submitted && univ.invalid" class="alert-danger">
+                                        <div *ngIf="univ.errors.required">Université de étude est requise </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <textarea [(ngModel)]="forms.sante" class="form-control square" name="sante"
+                                      placeholder="Etat de santé(accdenté ,fracture..)"
+                                      style="width:400px; margin-left: 50px"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block">S'inscrire</button>
+                        </div>
+                        <p>* : ce sont des champs requis</p>
+
+                        <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">Signup
+                            failed!<br/>{{ errorMessage }}</div>
+                    </form>
+                    <!--formualire user-------------------------------------------------------------------------------------------------------------------------->
+                    <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmits()" *ngIf="!isSuccessful" id="foo"
+                          name="form" novalidate>
+                        <P style="color: #ff5642">VOUS ETES UN CLIENT</P>
+                        <div class="form-group">
+                            <!-- Main content -->
+                            <section class="content">
+                                <div class="form-row">
+
+                                    <div class="col"  >
+                                        <!-- Profile Image -->
+                                                <div class="avatar-upload">
+                                                    <div class="avatar-preview">
+                                                        <i *ngIf="image" class="fa fa-times delete-img" (click)="removeImage()"></i>
+                                                        <img class="profile-user-img img-responsive rounded-circle" id="imagePreview"
+                                                             [attr.src]="image" *ngIf="image" width="100%" >
+                                                        <img src="../../../assets/profile-male-circle2-512.png" *ngIf="!image" width="100px " class="rounded-circle">
+                                                    </div>
+                                                    <div class="avatar-edit">
+                                                        <input type="file" (change)="fileChange(input)" #input class="img-upload-btn" id="imageUpload" />
+                                                        <label for="imageUpload"></label>
+                                                        <p>Ajouter votre photo</p>
+                                                    </div>
+                                                </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-row">
+                                            <input #username="ngModel" [(ngModel)]="forms.username" maxlength="20" minlength="3"
+                                                   name="Login" placeholder='Pseudo*' required type="text"/>
+                                            <div *ngIf="f.submitted && username.invalid" class="alert-danger align-content-center">
+                                                <div *ngIf="username.errors.required">Pseudo est requise</div>
+                                                <div *ngIf="username.errors.minlength">Pseudo doit contenir au moins 3 caractères</div>
+                                                <div *ngIf="username.errors.maxlength">Pseudo doit contenir au plus 20 caractères</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row" style="margin-right: 30px; margin-left: -22px">
+                                            <div class="col" >
+                                                <input [(ngModel)]="forms.nom" name="nom" placeholder="Nom"  type="text">
+                                            </div>
+                                            <div class="col">
+                                                <input [(ngModel)]="forms.prenom" name="prenom" placeholder="Prenom" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row"  style="margin-right: 30px; margin-left: -22px">
+                                            <div class="col">
+                                                <input  #cin="ngModel"[(ngModel)]="forms.cin" name="cin" placeholder='CIN*' required type="text" minlength="8" maxlength="8"/>
+                                                <div *ngIf="f.submitted && cin.invalid" class="alert-danger align-content-center">
+                                                    <div *ngIf="cin.errors.required">CIN est requise</div>
+                                                    <div *ngIf="cin.errors.maxlength">CIN doit contenir 8 variable</div>
+                                                    <div *ngIf="cin.errors.minlength">CIN doit contenir 8 variable</div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <select [(ngModel)]="forms.sexe" class="form-control custom-select" name="sexe" style="width:90px;height: 50px">
+                                                    <option disabled selected>Sexe:</option>
+                                                    <option>Féminin</option>
+                                                    <option>Masculin</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row" >
+                                            <input class="form-control" placeholder="dd/mm/yyyy"
+                                                   name="d2" #c2="ngModel" [(ngModel)]="forms.datenais" ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()">
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="form-group">
+                            <div class=" form-row" style="margin-right: 30px; margin-left: 22px">
+                                <div class=" col">
+                                    <input #email="ngModel" [(ngModel)]="forms.email" email name="Email" placeholder='Email*'
+                                           required
+                                           type="email"/>
+                                    <div *ngIf="f.submitted && email.invalid" class="alert-danger">
+                                        <div *ngIf="email.errors.required">Email est requise</div>
+                                        <div *ngIf="email.errors.email">Ce champ doit contenir un Email</div>
+                                    </div>
+                                </div>
+                                <div class=" col">
+                                    <input #password="ngModel" [(ngModel)]="forms.password" minlength="6" name="password"
+                                           placeholder='Mot de passe*'
+                                           required type="password"/>
+                                    <div *ngIf="f.submitted && password.invalid" class="alert-danger">
+                                        <div *ngIf="password.errors.required">Mot de passe est requise</div>
+                                        <div *ngIf="password.errors.minlength">Mot de passe doit être au moins 6 caractères</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class=" form-row ">
+                                <div class="col">
+                                    <input  #tel="ngModel"[(ngModel)]="forms.tel" name="tel" placeholder='Télèphone*' required type="text" minlength="8" maxlength="8"/>
+                                    <div *ngIf="f.submitted && tel.invalid" class="alert-danger align-content-center">
+                                        <div *ngIf="tel.errors.required">Télèphone est requise</div>
+                                        <div *ngIf="tel.errors.maxlength">Télèphone doit contenir 8 variable</div>
+                                        <div *ngIf="tel.errors.minlength">Télèphone doit contenir 8 variable</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class=" form-row" style="margin-right: 30px; margin-left: 22px">
+                                <div class="col">
+                                    <select [(ngModel)]="forms.ville" class="form-control custom-select" name="ville"
+                                            style="width:165px;height: 50px">
+                                        <option disabled selected value="Please select value">Votre ville</option>
+                                        <option>Ariana</option>
+                                        <option>Tunis</option>
+                                        <option>Gabès</option>
+                                        <option>Bizerte</option>
+                                        <option> Ben Arous</option>
+                                        <option>Béja</option>
+                                        <option>Gafsa</option>
+                                        <option>Jendouba</option>
+                                        <option>Kairouan</option>
+                                        <option>Kasserine</option>
+                                        <option>Kébili</option>
+                                        <option>Mahdia</option>
+                                        <option>Manouba</option>
+                                        <option>Médenine</option>
+                                        <option>Monastir</option>
+                                        <option>Nabeul</option>
+                                        <option>Sfax</option>
+                                        <option>Sidi Bouzid</option>
+                                        <option>Siliana</option>
+                                        <option>Sousse</option>
+                                        <option>Tataouine</option>
+                                        <option>Tozeur</option>
+                                        <option>Gafsa</option>
+                                        <option>Zaghouan</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <input [(ngModel)]="forms.codepostal"type="text" name="Codepostal" placeholder='Code postal'>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col">
+                            <textarea [(ngModel)]="forms.addresse" placeholder='Adresse exacte(rue , maison n°..)' class="form-control"  name="Addresse"style=" margin-left: 35px;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block">S'inscrire'</button>
+                        </div>
+                        <p>*:ce sont des champs requis</p>
+                        <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">Inscription échoué!<br/>{{ errorMessage }}</div>
+                    </form>
+                    <div *ngIf="isSuccessful" class="alert alert-success">Votre inscription est réussie {{forms.username}}</div>
+                </div>
+            </div>
+<!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+            <div id="signUpForm">
+                <div class="holder">
+                    <h1>Se connecter</h1>
+                    <hr>
+                    <br><br>
+                    <p>Acceder à votre compte</p>
+                    <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" *ngIf="!isLoggedIn" name="form"
+                          novalidate>
+                        <div class="form-group">
+                            <input #username="ngModel" [(ngModel)]="form.username" name="username" placeholder="Pseudo*"
+                                   required type="text"/>
+                            <div *ngIf="f.submitted && username.invalid" class="alert alert-danger" role="alert">
+                               Pseudo est requise
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input #password="ngModel" [(ngModel)]="form.password" minlength="6" name="password"
+                                   placeholder='Mot de passe*' required type="password"/>
+                            <div *ngIf="f.submitted && password.invalid" class="alert alert-danger" role="alert">
+                                <div *ngIf="password.errors.required">Mot de passe est requise</div>
+                                <div *ngIf="password.errors.minlength">Mot de passe doit être au moins 6 caractères</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block">
+                                Se connecter
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger" role="alert">
+                               Connection échoué {{ errorMessage }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div *ngIf="isLoggedIn" class="alert alert-success">
+                    Bienvenue {{form.username}} tant que {{ roles }}.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"></script>

@@ -1,0 +1,29 @@
+<div class="dropdown d-inline-block">
+    <a class="dropdown-toggle no-caret pl-2 pr-2" id="user-menu"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-user-o" aria-hidden="true"></i>
+    </a>
+
+    <div class="dropdown-menu dropdown-menu-right rounded-0 mt-3 p-0 box-shadow" aria-labelledby="user-menu" >
+        <div class="user-menu">
+            <div class="user-info text-center p-3"style="background-color: white">
+                <img *ngIf="currentUser.roles!='ROLE_ADMIN'"
+                     src='{{img}}'  width="100"
+                     alt="Avatar" class="avatar  rounded-circle">
+                <img *ngIf="currentUser.roles=='ROLE_ADMIN'" src="../../../../assets/ad.png"  alt="user-img" class="user-img rounded-circle" >
+                <p class="mt-1 mb-0">
+                   <strong class="text-uppercase">{{currentUser.nom}} {{currentUser.prenom}}</strong>
+                    <br>
+                    <small *ngIf="currentUser.roles=='ROLE_USER'">Role : CLIENT </small>
+                    <small *ngIf="currentUser.roles=='ROLE_ETUDIANT'">Role : ETUDIANT </small>
+                    <small *ngIf="currentUser.roles=='ROLE_ADMIN'">Role : ADMIN </small>
+                </p>
+            </div>
+<!--            <a class="dropdown-item" routerLink="profil"><i class="fa fa-user mr-2"></i>Profile</a>-->
+<!--&lt;!&ndash;            <a class="dropdown-item" routerLink="settings"><i class="fa fa-cog mr-2"></i>Settings</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a class="dropdown-item" routerLink="/"><i class="fa fa-lock mr-2"></i>Lock screen</a>&ndash;&gt;-->
+<!--            <a class="dropdown-item mb-1" routerLink="/login"><i class="fa fa-power-off mr-2"></i>Log out</a>-->
+<!--           -->
+        </div>
+    </div>
+</div>

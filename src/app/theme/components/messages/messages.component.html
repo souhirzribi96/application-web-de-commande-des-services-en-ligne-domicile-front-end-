@@ -1,0 +1,92 @@
+<div id="messagesDropDown" class="dropdown d-inline-block">
+    <a class="dropdown-toggle no-caret pl-2 pr-2" id="messages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-bell-o" aria-hidden="true"></i>
+    </a>
+
+    <div class="dropdown-menu dropdown-menu-right rounded-0 p-0 mt-3 box-shadow" aria-labelledby="messages">    
+        <div class="clearfix">            
+            <ul id="messagesTabs" class="nav nav-tabs nav-justified border-0">
+                <li class="nav-item"*ngIf="showModeratorBoard">
+                    <a class=" card__category nav-link active transition" data-toggle="tab" href="#comments"style="font-size: small" >Services validés
+<!--                        <i class="fa  fa-check" aria-hidden="true"></i>-->
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="showModeratorBoard">
+                    <a class="card__category nav-link transition" data-toggle="tab" href="#files"style="font-size: small" >
+                        Services réservés
+<!--                        <i class="fa fa-file" aria-hidden="true"></i>-->
+                    </a>
+                </li>
+                <li class="nav-item"  *ngIf="showUserBoard">
+                    <a class="card__category nav-link active transition" data-toggle="tab" href="#meetings" style="font-size: small">Services réservés<i class="fa fa-calendar-check-o" aria-hidden="true"></i></a>
+                </li>                                            
+            </ul>
+        </div>
+        <div class="tab-content" perfectScrollbar>
+            <div class="tab-pane active " id="comments">
+                <div class="list">
+                    <a *ngFor="let message of listeservicevalide" href="javascript:void(0);" class="transition">
+                        <h3 class="card__category " style="color: #ff5642" >{{  message.libelle  }}</h3>
+                        <div >
+                            <h3><strong style="color: #ff5642">Date : </strong>{{message.date}}</h3>
+                            <h3><strong style="color: #ff5642">Heure : </strong> De {{message.heure_deb}} Jusqu'a {{message.heure_fin}} </h3>
+                            <h3><strong style="color: #ff5642">Prix : </strong>{{message.prix}}</h3>
+                            <h3><strong style="color: #ff5642">Description : </strong>{{message.description}}</h3>
+<!--                            <h3><strong style="color: #ff5642">Date de création: </strong> {{message.createdAt}}</h3>-->
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="files">
+                <div class="list">
+                    <a *ngFor="let meeting of servicess" href="javascript:void(0);" class="transition">
+                        <div class="meeting-day bg-danger pull-left">
+                            <span>Date</span>
+                            <span style="font-size: small">{{meeting.date}}</span>
+
+                        </div>
+                        <div class="list-content ">
+                            <h2 class="card__category " style="color: #ff5642">{{meeting.libelle}}</h2>
+                            <p>De {{meeting.heure_deb}} h à {{meeting.heure_fin}} h </p>
+                            <p>Prix{{meeting.prix}}dt</p>
+<!--                            <p > Etudiant: {{meeting.id_user}}</p>-->
+                            <span  >
+                <div routerLink="/pages/user/{{ meeting.id_user }}"  >
+                    Consulter le profile du <strong>Client </strong> <i class="fa fa-external-link"></i>  </div></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="tab-pane active" id="meetings">
+                <div class="list">
+                    <a *ngFor="let meeting of liste" href="javascript:void(0);" class="transition">
+                        <div class="meeting-day bg-danger pull-left">
+                            <span>Date</span>
+                            <span style="font-size: small">{{meeting.date}}</span>
+
+                        </div>
+                        <div class="list-content ">
+                            <h2 class="card__category " style="color: #ff5642">{{meeting.libelle}}</h2>
+                            <p>De {{meeting.heure_deb}} h à {{meeting.heure_fin}} h </p>
+                            <p>Prix{{meeting.prix}}dt</p>
+<!--                            <div *ngFor="let etd of etdfin" >-->
+<!--                                <div [ngSwitch]="etd?.id">-->
+<!--                            <p *ngSwitchCase="meeting.id_etd"> Etudiant: <u  class="text-uppercase text-primary">{{etd.username}}</u></p>-->
+<!--                                </div>-->
+<!--                        </div>-->
+                            <span >
+                <div routerLink="/pages/user/{{ meeting.id_etd }}">
+                    Consulter le profil de <strong>L'étudiant </strong><i class="fa fa-external-link"></i>
+                </div>
+<!--                <button class="badge badge-primary mr-2">-->
+<!--                    N'oubliez pas de donner votre avis aprés le service-->
+<!--                </button>-->
+                            </span>
+                        </div>
+                    </a>
+                </div> 
+            </div>
+        </div> 
+    </div>
+</div>

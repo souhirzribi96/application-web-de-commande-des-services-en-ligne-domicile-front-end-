@@ -1,0 +1,226 @@
+<div *ngIf="currentUser; else loggedOut">
+<div class="user-profile">
+        <div class="profile-header-background" style="background-image: url('../../../assets/cf.jpg');margin-top: 100px">
+            </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-info-left">
+                    <div class="text-center">
+                        <img *ngIf="currentUser.roles!='ROLE_ADMIN'"
+                             src='{{img}}'  width="200px"
+                             alt="Avatar" class="avatar  rounded-circle">
+<!--                        <img :src="'data:image/jpg;base64,' + logo" />-->
+
+                        <!--                        <img *ngIf="currentUser.roles=='ROLE_ADMIN'" src="../../../../assets/ad.png"  alt="user-img" class="user-img rounded-circle">-->
+
+                        <h2 class="text-uppercase">  <strong>{{ currentUser.username }}</strong>    </h2>
+                    </div>
+                    <ngb-rating [rate]="moy" *ngIf="currentUser.roles=='ROLE_ETUDIANT'" [formControl]="ctrlFormIntegration"></ngb-rating><pre>Note Moyenne: <b *ngIf="moy">{{ moy }}</b></pre>
+
+
+                    <div class="section font-italic">
+                        <h3 *ngIf="currentUser.roles!='ROLE_ADMIN'">Intro</h3>
+                        <p *ngIf="currentUser.roles!='ROLE_ADMIN'"> <strong ><i class="fa fa-envelope-o"></i></strong> {{ currentUser.email }}</p>
+                        <p *ngIf="currentUser.roles!='ROLE_ADMIN'"> <i class="fa fa-user-o"></i> {{ currentUser.nom }} {{currentUser.prenom }}</p>
+                        <p *ngIf="currentUser.roles!='ROLE_ADMIN'"> <i class="fa fa-location-arrow"></i> {{ currentUser.ville}}</p>
+                    </div>
+                </div>
+            </div>
+            <!--partie eli fiha hajet mt3o -->
+            <div class="col-lg-6 mb-4" *ngIf="currentUser.roles!='ROLE_ADMIN'">
+                <div class=" text-left" style="width: 700px ; margin-bottom: 500px" >
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" >Information personnel </a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile"
+                               aria-selected="false">Mettre ajour vos information</a>
+<!--                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">2</a>-->
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent" >
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <h4 class=" font-italic " style="color: indianred">
+                          Hello  {{currentUser.nom}} {{currentUser.prenom}} !
+                        </h4>
+                            <p class="font-weight-light"><strong>Voici votre information personnelle</strong></p>
+                            <hr>
+                            <p class="font-weight-light"><strong>N°CIN: </strong> {{currentUser.cin}}</p>
+                            <p class="font-weight-light"><strong>SEXE: </strong>{{currentUser.sexe}}</p>
+                            <p class="font-weight-light"><strong>DATE DE NAISSANCE: </strong> {{currentUser.datenais}}</p>
+                            <p class="font-weight-light" ><strong>N° TELEPHONE: </strong>{{currentUser.tel}}</p>
+                            <p class="font-weight-light" *ngIf="currentUser.universite"><strong>ETABLISSEMENT SCOLAIRE: </strong>{{currentUser.universite}}</p>
+                            <p class="font-weight-light" *ngIf="currentUser.sante"><strong>ETAT SANTE: </strong>{{currentUser.sante}}</p>
+
+                            <p class="font-weight-light" *ngIf="currentUser.codepostal"><strong>CODE POSTAL </strong>{{currentUser.codepostal}}</p>
+                            <p class="font-weight-light" *ngIf="currentUser.addresse"><strong>ADRESSE EXACTE: </strong>{{currentUser.addresse}}</p>
+
+                        </div>
+
+
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <!-- Material form subscription -->
+                            <!--Card content-->
+                                <div class="card-body px-lg-5">
+                                    <!-- Form -->
+                                    <form class="text-center" style="color: #757575;" action="#!">
+
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <!-- First name -->
+<!--                                                <div class="md-form">-->
+<!--                                                    <label for="materialRegisterFormFirstName">Nom</label>-->
+<!--                                                    <input [(ngModel)]="currentUser.nom"type="text" id="materialRegisterFormFirstName" class="form-control">-->
+<!--                                                </div>-->
+                                                <div class="form-group">
+                                                   <label for="nom">Nom</label>
+                                                   <input type="text" class="form-control" [(ngModel)]="currentUser.nom" name="nom" placeholder="Nom"/>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <!-- Last name -->
+                                                <div class="form-group">
+                                                    <label for="prenom">Prénom</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="currentUser.prenom" name="prenom" placeholder="Prenom"/>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                            <div class="form-group">
+                                                <label for="cin">CIN</label>
+                                                <input type="text" class="form-control" [(ngModel)]="currentUser.cin" name="cin" placeholder="CIN"/>
+                                            </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group ">
+                                                    <label for="cin">Sexe</label>
+                                                    <select [(ngModel)]="currentUser.sexe"  class="form-control custom-select" name="sexe" style="width:110px;">
+                                                        <option disabled selected>Sexe:</option>
+                                                        <option>Féminin</option>
+                                                        <option>Masculin</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- E-mail -->
+                                        <div class="form-row">
+                                            <div class="col">
+
+                                        <div class="md-form mt-0">
+                                            <label for="email">Adresse Email</label>
+                                            <input type="text" class="form-control" [(ngModel)]="currentUser.email" name="email" placeholder="Email"/>
+                                        </div>
+                                            </div>
+                                            <div class="col">
+
+                                            <div class="md-form mt-0">
+                                            <label for="date">Date naissance</label>
+                                            <input type="text" class="form-control" [(ngModel)]="currentUser.datenais" name="date" placeholder="Email"/>
+                                        </div>
+                                            </div>
+                                            <div class="col">
+                                                <!-- Phone number -->
+                                                <div class="md-form">
+                                                    <label for="tel">N°Tél</label>
+
+                                                    <input type="text" class="form-control" [(ngModel)]="currentUser.tel" name="tel" placeholder="Num télephone"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Password -->
+                                        <div class="md-form">
+                                            <label for="password">Mot de passe</label>
+                                            <input type="password" class="form-control" [(ngModel)]="currentUser.password" name="password" placeholder="Mot de passe"/>
+                                        </div>
+
+
+<!--                                        <div class="md-form">-->
+
+<!--                                        <select class="mdb-select">-->
+<!--                                            <option value="" disabled>Choose option</option>-->
+<!--                                            <option value="1" selected>Feedback</option>-->
+<!--                                            <option value="2">Report a bug</option>-->
+<!--                                            <option value="3">Feature request</option>-->
+<!--                                            <option value="4">Feature request</option>-->
+<!--                                        </select></div>-->
+                                        <div class="form-row">
+                                        <div class="col-9">
+                                            <div class="form-group ">
+                                                <label for="ville">Ville</label>
+                                            <select  [(ngModel)]="currentUser.ville" class="form-control custom-select" name="ville"
+                                                    style="width:400px;">
+                                                <option disabled selected value="Please select value">Votre ville</option>
+                                                <option>Ariana</option>
+                                                <option>Tunis</option>
+                                                <option>Gabès</option>
+                                                <option>Bizerte</option>
+                                                <option> Ben Arous</option>
+                                                <option>Béja</option>
+                                                <option>Gafsa</option>
+                                                <option>Jendouba</option>
+                                                <option>Kairouan</option>
+                                                <option>Kasserine</option>
+                                                <option>Kébili</option>
+                                                <option>Mahdia</option>
+                                                <option>Manouba</option>
+                                                <option>Médenine</option>
+                                                <option>Monastir</option>
+                                                <option>Nabeul</option>
+                                                <option>Sfax</option>
+                                                <option>Sidi Bouzid</option>
+                                                <option>Siliana</option>
+                                                <option>Sousse</option>
+                                                <option>Tataouine</option>
+                                                <option>Tozeur</option>
+                                                <option>Gafsa</option>
+                                                <option>Zaghouan</option>
+                                            </select>
+                                        </div>
+                                        </div>
+                                            <div class="col"  *ngIf="currentUser.codepostal">
+                                                <div class="form-group">
+                                                    <label for="Codepostal">Codepostal</label>
+                                                    <input  class="form-control" [(ngModel)]="currentUser.codepostal"type="text" name="Codepostal">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="Addresse" *ngIf="currentUser.addresse">
+                                            <label for="Addresse">Addresse exacte</label>
+                                            <textarea [(ngModel)]="currentUser.addresse" placeholder='Adresse exacte(rue , maison n°..)' class="form-control"  name="Addresse"></textarea>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col" *ngIf="currentUser.universite">
+                                        <div class="md-form">
+                                            <label for="universite">Universite</label>
+                                            <input type="text" class="form-control" [(ngModel)]="currentUser.universite" name="universite" placeholder="Universite"/>
+                                        </div>
+                                            </div>
+                                        <div class="col" *ngIf="currentUser.sante">
+                                            <div class="md-form">
+                                                <label for="sante">Etat du santé</label>
+                                                <input [(ngModel)]="currentUser.sante" class="form-control square" name="sante"
+                                                      placeholder="Etat de santé(accdenté ,fracture..)"/>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <!-- Sign up button -->
+                                        <button class="btn btn-outline-danger btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit"  (click)="updateTutorial()">Sauvgarder</button>
+<!--                                        <button type="submit" class="badge badge-success" (click)="updateTutorial()">-->
+<!--                                            Update-->
+<!--                                        </button>-->
+                                    </form>
+                                    <!-- Form -->
+
+                                </div>
+
+                            <!-- Material form subscription -->
+                        </div>
+<!--                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">..222.</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #loggedOut>
+    Please login.
+</ng-template>

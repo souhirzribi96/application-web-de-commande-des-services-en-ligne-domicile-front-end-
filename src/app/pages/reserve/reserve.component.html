@@ -1,0 +1,75 @@
+<form class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2">
+    <label for="recherche"class="card__category" style="color: blue ;font-size: medium">Chercher votre service :</label><br>
+    <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Recherche" [(ngModel)]="title" name="recherche">
+    <i type="button" (click)="searchTitle()" class="fa fa-search" aria-hidden="true"></i>
+</form>
+    <br>
+<h3  class="card__category" style="margin-left: 400px ;color: red ;font-size: 1em"> <strong>Allez vite Commendez votre service !</strong></h3>
+    <div class="row" >
+        <div class="card" *ngFor="let serv of liste let i = index"
+             [class.active]="i == currentIndex">
+
+<!--                <span id="heart-second" value="So" class="heart"><i onclick="wishList()" class="fas fa-heart"></i></span>-->
+             <img *ngIf="serv.categorieCode==1"
+                  src='../../../assets/d.png' class="first-image">
+
+            <img *ngIf="serv.categorieCode==2"
+                 src='../../../assets/a.jpg' class="first-image">
+
+            <img *ngIf="serv.categorieCode==3"
+                 src='../../../assets/z.jpg' class="first-image">
+            <img *ngIf="serv.categorieCode==4"
+                 src='../../../assets/br.jpg' class="first-image">
+            <img *ngIf="serv.categorieCode==5"
+                 src='../../../assets/b.jpg' class="first-image">
+             <div class="card-body">
+                    <a class="btn btn-outline-primary w-180p mb-1 mr-1 card__category" style="font-size: 0.6em; margin-left: 5px;" data-toggle="modal"
+                       data-target="#modalsup"                      (click)=" setActiveTutorial(serv, i)"><strong>Résever service</strong></a>
+                    <hr>
+                 <h5 class="card__category" style="color: darkgray ; text-align: center"><strong>Service:{{serv.libelle}}</strong></h5>
+                 <h5 class="card__title"><strong>Date : </strong>{{serv.date}}</h5>
+                 <h5 class="card__title"><strong>Heure début : </strong> {{serv.heure_deb}}</h5>
+                 <h5 class="card__title"><strong>Heure fin :</strong> {{serv.heure_fin}}</h5>
+                 <h5 class="card__title"><strong>Prix (DT) : </strong>{{serv.prix}}</h5>
+                 <h5 class="card__title"><strong>Description : </strong>{{serv.description}}</h5>
+                 <h5 class="card__title"><strong>Date de pub : </strong> {{serv.createdAt}}</h5>
+                 <a routerLink="/pages/categories/{{ serv.categorieCode}}" class="card__title text-primary">Voir la catégorie de service </a>
+                 <div class="card__title">
+                     <button type="button" class="btn btn-primary btn-rounded w-150p mb-1 mr-1 card__category"routerLink="/pages/user/{{ serv.id_etd }}">
+                         Voir profil <i class="fa fa-external-link-square"></i></button> </div>
+<!--                 <h5 class="card__title"><a href="#" style="color: blue; text-decoration: underline"> Voir profile </a></h5>-->
+                </div>
+
+
+
+            <div class="modal fade right" id="modalsup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true" data-backdrop="false"  >
+                <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                        <!--Header-->
+                        <div class="modal-header card__category">
+                            <p   style="color: #ff5642" >
+                                Reservé le ervice:{{serv.libelle}}
+                            </p>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="white-text">&times;</span>
+                            </button>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body" style=" background-color: white">
+
+                            Vous étes sur ?
+                        </div>
+
+                        <!--Footer-->
+                        <div class="modal-footer justify-content-center">
+                            <a type="button" class="btn btn-outline-success waves-effect" (click)="updateetat(serv, i)">Confirmer</a>
+                        </div>
+                    </div>
+                    <!--/.Content-->
+                </div>
+            </div>
+        </div>
+    </div>
+

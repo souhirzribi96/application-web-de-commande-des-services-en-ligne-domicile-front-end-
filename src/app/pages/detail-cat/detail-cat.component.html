@@ -1,0 +1,438 @@
+<div class="col-md-6 card__category" *ngIf="currentcat">
+    <div>
+        <h4 class="font-italic text-danger mat-form-field-underline"style="display: inline-block">Catégorie:
+            <p class="text-left fs-13 "
+               style="display: inline-block ; ">
+                {{ currentcat.name }}
+            </p>
+        </h4>
+    </div>
+</div>
+<p class="text-left fs-5 " style="margin-left: 20px ;font-size: small"> Voici la liste des services de cette catégorie: </p>
+<div [ngSwitch]="currentcat?.id" style="font-size: small">
+    <p class="text-left fs-14" style="margin-left: 20px ; color: dimgrey " *ngSwitchCase="1">
+        <strong class="card__category" style="color: black">Ménage standard :</strong> classique ou écologique <br>
+        <strong class="card__category" style="color: black">Ménages spécifiques :</strong> grand ménage, ménage de fête, spécial déménagement, fin de travaux ou ménage pour locations saisonnières, nettoyage des surfaces vitrées
+        <br>
+        <strong class="card__category" style="color: black">Repassage et entretien des textiles :</strong> nettoyage des tapis, rideaux, canapés.
+    </p>
+    <p class="text-left fs-14" style="margin-left: 20px ; color: dimgrey " *ngSwitchCase="2">
+        <strong class="card__category" style="color: black">Garde d'enfants -3 ans :</strong> Prenez soin des enfants avec prudence <br>
+        <strong class="card__category" style="color: black">Garde d'enfants +3 ans :</strong> moins de prudence <br>
+        <strong class="card__category" style="color: black">Les activités possibles :</strong> Activités d’éveil, de préparation et d’aide à la prise de repas équilibrés, des soins d’hygiène tel que le bain ou le suivi des devoirs et l’accompagnement dans leurs déplacements hors du domicile
+    </p>
+    <p class="text-left fs-14" style="margin-left: 20px ; color: dimgrey " *ngSwitchCase="3">
+        <strong class="card__category" style="color: black">Entretien du lieu de vie :</strong> garantir une maison propre et saine (ménage courant, entretien du linge...)
+        <br>
+        <strong class="card__category" style="color: black">Autonomie & Mobilité :</strong> faciliter le maintien à domicile et l'accompagnement à l'extérieur (aide au lever/coucher, accompagnement aux rdv médicaux...)
+        <br>
+        <strong class="card__category" style="color: black">Aide aux repas :</strong> assister à la préparation/prise de repas, réaliser les courses... <br>
+        <strong class="card__category" style="color: black">Sécurité & Adaptation de l’habitat :</strong> sécuriser la personne, son lieu de vie et aménager le logement pour favoriser le maintien à domicile
+        <br>
+        <strong class="card__category" style="color: black">Handicap & Maladies chroniques :</strong> entretenir le cadre de vie et faciliter les actes essentiels
+
+
+    </p>
+    <p class="text-left fs-14" style="margin-left: 20px ; color: dimgrey " *ngSwitchCase="4">
+        <strong class="card__category" style="color: black">Aménagement intérieur :</strong> montage de meuble, fixation de cadres ou d'accessoires de cuisine, retouches de peinture, remplacement d'abattant WC....
+        <br>
+        <strong class="card__category" style="color: black">Aménagement extérieur :</strong> montage d'abri de jardin, de mobiliers de jardin, de barbecue ou plancha, pose de clôture, installation de toboggan...
+        <br>
+        <strong class="card__category" style="color: black">Sécurité et domotique :</strong> de système de téléassistance, télésurveillance...
+
+    </p>
+    <p class="text-left fs-14" style="margin-left: 20px ; color: dimgrey " *ngSwitchCase="5">
+        <strong class="card__category" style="color: black">Entretien de jardin :</strong> tonte de pelouse, taille de haies, désherbage, ramassage des feuilles…
+        <br>
+        <strong class="card__category" style="color: black">Aménagement & création de jardin :</strong> plantations, réalisation de potager, création de pelouse, installation d'arrosage automatique...
+        <br>
+        <strong class="card__category" style="color: black">Nettoyage des extérieurs :</strong> nettoyage haute pression de terrasse, nettoyage du mobilier de jardin, entretien de piscine...
+
+    </p>
+</div>
+<!--modal mt3 ajouter service-->
+<ng-template #modalContent>
+    <div class="modal-header">
+        <h4 class="modal-title " id="modal-basic-title" style="color: red ;text-align: center;font-style: italic">Ajouter service</h4>
+        <hr>
+        <button type="button" class="close" aria-label="Close"  (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="row">
+            <div class="col-12 vertical-tabs">
+                <div class="submit-form" >
+                    <div class="card-body pt-0 widget-body" >
+                        <div class="form-group " >
+                            <div class="form-row">
+                                <div class="col">
+                            <label class="form-control-label">Libellé du service*</label>
+
+                            <select class="form-control"  required [(ngModel)]="tutorial.libelle"  *ngIf="currentcat.id==1">
+                                <option>Ménage standard  </option>
+                                <option>Ménages spécifiques </option>
+                                <option>Repassage et entretien  </option>
+                            </select>
+
+                            <select class="form-control"  required [(ngModel)]="tutorial.libelle"  *ngIf="currentcat.id==2">
+                                <option>Garde d'enfants -3 ans  </option>
+                                <option>Garde d'enfants +3 ans </option>
+                            </select>
+
+                            <select class="form-control"  required [(ngModel)]="tutorial.libelle"  *ngIf="currentcat.id==3">
+                                <option>Entretien du lieu de vie  </option>
+                                <option>Autonomie & Mobilité </option>
+                                <option>Sécurité & Adaptation de l’habitat </option>
+                                <option >Handicap & Maladies chroniques </option>
+                            </select>
+
+                            <select class="form-control"  required [(ngModel)]="tutorial.libelle"  *ngIf="currentcat.id==4">
+                                <option>Aménagement intérieur  </option>
+                                <option>Aménagement extérieur  </option>
+                                <option>Sécurité et domotique  </option>
+                            </select>
+
+                            <select class="form-control"  required [(ngModel)]="tutorial.libelle"  *ngIf="currentcat.id==5">
+                                <option>Entretien de jardin  </option>
+                                <option>Aménagement & création de jardin  </option>
+                                <option>Nettoyage des extérieurs  </option>
+                            </select>
+                        </div>
+                                <div class="col">
+                                    <label class="form-control-label">Date du service*</label>
+                                    <div class="input-group">
+                                        <input #dateOfBirth="ngModel" id="dateOfBirth" class="form-control" placeholder="dd/mm/yyyy" name="dp" ngbDatepicker #dp="ngbDatepicker" required [(ngModel)]="tutorial.date">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-danger calendar" (click)="dp.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+                                        </div>
+                                        <div *ngIf="submitted && dateOfBirth.invalid" class="alert-danger">
+                                            <div *ngIf="dateOfBirth.errors.required">Date naissance est requise</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 mb-6">
+                                <label class="form-control-label" >Heure de début service*</label>
+                                <ngb-timepicker #hdeb="ngModel" [(ngModel)]="tutorial.heure_deb" [meridian]="meridian" required></ngb-timepicker>
+                                <div *ngIf="submitted && hdeb.invalid" class="alert-danger">
+                                    <div *ngIf="hdeb.errors.required">Heure de début est requise</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 mb-6">
+                                <label class="form-control-label" >Heure de fin service*</label>
+                                <ngb-timepicker #hfin="ngModel" [(ngModel)]="tutorial.heure_fin" [meridian]="meridian"required></ngb-timepicker>
+                                <div *ngIf="submitted && hfin.invalid" class="alert-danger">
+                                    <div *ngIf="hfin.errors.required">Heure de fin est requise</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-6 col-md-6 mb-6">
+                                <label class="form-control-label" >Prix en dinars*</label>
+                                <div class="input-group ">
+                                    <input #prix="ngModel"type="text" class="form-control" placeholder="10"[(ngModel)]="tutorial.prix" required>
+                                    <div class="input-group-append"><span class="input-group-text">DT</span></div>
+                                    <div *ngIf="submitted && prix.invalid" class="alert-danger">
+                                        <div *ngIf="prix.errors.required">Prix requise</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group  col-lg-6 col-md-6 mb-6" >
+                                <label class="form-control-label " >L'état du service*</label>
+                                <div class="form-group" >
+
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" name="radio" class="custom-control-input radio-danger" id="radioPrimary"  disabled checked  >
+                                        <label class="custom-control-label" for="radioPrimary">Non validé </label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" name="radio" class="custom-control-input radio-success" id="radioSuccess" disabled >
+                                        <label class="custom-control-label" for="radioSuccess">Validé</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" name="radio" class="custom-control-input radio-primary " id="radioDanger" disabled>
+                                        <label class="custom-control-label" for="radioDanger">Prise </label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="form-control-label">Description du service</label>
+                            <textarea  class="form-control"  required [(ngModel)]="tutorial.description"></textarea>
+                        </div>
+                    </div>
+                    <div *ngIf="submitted && is" class="alert alert-warning">Ajout d'un service échoué!<br/></div>
+
+                    <div class="modal-footer" *ngIf="!submitted ">
+                        <button (click)="saveTutorial() && refreshList()" class="btn btn-outline-danger w-100p mb-1 mr-1" routerLink="/pages/categories/{{ currentcat.id }}">Ajouter</button>
+                        <button type="button" class="btn btn-outline-primary w-100p mb-1 mr-1" (click)="closeModal()" routerLink="/pages/categories/{{ currentcat.id }}">Fermer</button>
+
+                    </div>
+                </div>
+
+                <div class="col-12 bg-white text-center py-1" *ngIf="submitted">
+                    <h4 *ngIf=" !is">Vous avez soumis avec succès !</h4>
+                    <h4 *ngIf=" is">Vous avez soumis avec échec réessayer !</h4>
+                    <button class="btn btn-outline-danger w-200p mb-1 mr-1" (click)="newTutorial() && refreshList()" routerLink="/pages/categories/{{ currentcat.id }}">Ajouter de nouveau</button>
+                    <button type="button"  class="btn btn-outline-secondary w-100p mb-1 mr-1" (click)="closeModal()" routerLink="/pages/categories/{{ currentcat.id }}">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!--Button ajouter mt3 modle *******************************************************************-->
+<div style="text-align: center">
+    <button type="button" class="btn btn-outline-danger w-400p mb-xl-2 mr-xl-2 btn-lg " style="margin-left: 20px"
+            (click)="openModal(modalContent)" *ngIf="showModeratorBoard" ><i class="fa fa-plus"></i>
+        Ajouter nouveau service <strong>{{username}}</strong></button>
+</div>
+<!--afichaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaage &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+<!--<h1 class="header__title">Expanding Card Grid</h1>-->
+<!--<h2 class="header__subtitle">ssssss </h2>-->
+<!--tajrib**************************************************Liste pour admin pour valider*****************************************""""""""""""""""""""""""""""""""-->
+<div *ngIf="showAdminBoard">
+<p class=" card__category"style="text-align: center ; color: red ; size: large" > Liste des services ajoutés et non encore validés</p>
+
+<div  class="d-flex flex-container flex-wrap">
+    <div class="blog-card" *ngFor="let tutorial of etat  let i = index"
+         [class.active]="i == currentIndex"
+    >
+        <div class="meta">
+<!--            <div class="photo" style="background-image: url(../../../assets/Image.jpg)"></div>-->
+            <div *ngFor="let user of listaa" >
+                <img *ngIf="tutorial.id_etd==user.id" class="photo"  src='{{user.data}}'  style=" position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform .2s;
+width: 200px;height: 315px"/>
+                <div [ngSwitch]="user?.id">
+                    <ul class="details" *ngSwitchCase="tutorial.id_etd">
+                        <!--            Login : {{user.username}}-->
+                        <li class="author"><a routerLink="/pages/user/{{ tutorial.id_etd }}">{{ user.nom }} {{user.prenom}}</a></li>
+                        <li class="date">{{ user.datenais }}  </li>
+                        <li><i class="fa fa-mars " ></i>  <i class="fa fa-venus"  style="margin-right: 10px;"></i>{{user.sexe}}</li>
+                        <li><i class="fa fa-envelope-o" style="margin-right: 10px;"></i>{{user.email}}</li>
+                        <li><i class="fa fa-mobile" style="margin-right: 10px;"></i> {{user.tel}}</li>
+                        <li><i class="fa fa-map-marker" style="margin-right: 10px;"></i>{{user.ville}}</li>
+                        <li><i class="fa fa-university"></i>{{user.universite}}</li>
+                        <li><i class="fa fa-heartbeat" style="margin-right: 10px;"></i>{{user.sante}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="description">
+            <h6 style="font-size: large ; color: #1C1E1F" class=" card__category" > Libelle du service {{ tutorial.libelle }} </h6>
+            <p style="color: #1C1E1F ;font-size: small" >
+                <strong>Date : </strong> {{ tutorial.date }} <br>
+                <strong>Heure début  : </strong>{{ tutorial.heure_deb }}<br>
+                <strong>Heure fin  : </strong> {{ tutorial.heure_fin }}<br>
+                <strong>Prix (Dt) : </strong>{{ tutorial.prix }}<br>
+                <strong>Etat  : </strong><strong style="color: red"> {{ tutorial.etat }}</strong><br>
+                <strong>Description :</strong> {{ tutorial.description }}<br>
+                <strong>Date de création du publication :</strong>{{tutorial.createdAt}}</p>
+            <p class="read-more">
+                <a  (click)="updateetat(tutorial, i)"  >Accepter</a>
+            </p>
+            <p class="read">
+                <a (click)="deleteTutorial(tutorial, i)" >Refuser</a>
+            </p>
+        </div>
+    </div>
+</div>
+</div>
+<!--<div class="blog-card alt">-->
+<!--    <div class="meta">-->
+<!--        <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-2.jpg)"></div>-->
+<!--        <ul class="details">-->
+<!--            <li class="author"><a href="#">Jane Doe</a></li>-->
+<!--            <li class="date">July. 15, 2015</li>-->
+<!--            <li class="tags">-->
+<!--                <ul>-->
+<!--                    <li><a href="#">Learn</a></li>-->
+<!--                    <li><a href="#">Code</a></li>-->
+<!--                    <li><a href="#">JavaScript</a></li>-->
+<!--                </ul>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--    <div class="description">-->
+<!--        <h1>Mastering the Language</h1>-->
+<!--        <h2>Java is not the same as JavaScript</h2>-->
+<!--        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>-->
+<!--        <p class="read-more">-->
+<!--            <a href="#">Read More</a>-->
+<!--        </p>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script type="text/javascript">-->
+
+<!--</script>-->
+<div *ngIf="showModeratorBoard">
+    <p class="header__title"style="text-align: center ; color: darkgrey ;font-size: medium" > Liste des services ajoutés par <strong> {{username}}</strong></p>
+    <div class="d-flex flex-container flex-wrap">
+        <div class="cardd" *ngFor="let tutorial of lis let i = index"
+             [class.active]="i == currentIndex ">
+            <p class="header__title" style="font-size: large ; text-align: center; color: darkred">{{ tutorial.libelle }} </p>
+            <hr>
+            <div class="info" style="margin-left: 20px">
+                <div  style="font-size: small ; display: inline">  <strong class="card__title" style="font-size: 13px ;">Date :</strong> {{ tutorial.date }}</div>
+                <br>
+                <div style="font-size: small ; display: inline"><strong class="card__title" style="font-size: 13px ;">Heure début : </strong>{{ tutorial.heure_deb }}</div>
+                <br>
+                <div style="font-size: small ; display: inline"> <strong class="card__title" style="font-size: 13px ;">Heure fin : </strong>{{ tutorial.heure_fin }}</div>
+                <br>
+                <div style="font-size: small ; display: inline"><strong class="card__title" style="font-size: 13px ;">Prix (Dt): </strong>{{ tutorial.prix }}</div>
+                <br>
+                <div style="font-size: small ; display: inline"><strong class="card__title" style="font-size: 13px ;">Etat : </strong>{{ tutorial.etat }}</div>
+                <br>
+                <div style="font-size: small ; display: inline"><strong class="card__title" style="font-size: 13px ;">Description : </strong>{{ tutorial.description }}</div>
+                <br>
+<!--botton modifier &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+            </div>
+
+            <div class="actions">
+                <button class="trade card__title" style="margin-top: 100px ; margin-left: 30px" (click)="setActiveTutorial(tutorial,i,modal)" >
+                    Mofidier service <i class="fa fa-pencil-square-o"></i></button>
+                <div class="overlay"></div>
+            </div>
+
+
+            <!--***********************************Model modifer******************************************9-->
+            <ng-template #modal >
+                <div class="modal-header">
+                    <h4 class="modal-title " id="modal-basic-title" style="color: dimgrey ;text-align: center;font-style: italic">Modifier service</h4>
+                    <hr>
+                    <button type="button" class="close" aria-label="Close"  (click)="closeModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body ">
+                    <div class="row">
+                        <div class="col-12 vertical-tabs">
+                            <div class="submit-form">
+                                <div class="card-body pt-0 widget-body" *ngIf="!submitted">
+                                    <div class="form-group ">
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <label class="form-control-label">Libellé du service</label>
+
+                                                <select class="form-control"  required [(ngModel)]="tutorial.libelle"  *ngIf="currentcat.id==1">
+                                                    <option>Ménage standard  </option>
+                                                    <option>Ménages spécifiques </option>
+                                                    <option>Repassage et entretien  </option>
+                                                </select>
+
+                                                <select class="form-control"  required [(ngModel)]="tutorial.libelle"  *ngIf="currentcat.id==2">
+                                                    <option>Garde d'enfants -3 ans  </option>
+                                                    <option>Garde d'enfants +3 ans </option>
+                                                </select>
+
+                                                <select class="form-control"  required [(ngModel)]="tutorial.libelle"  *ngIf="currentcat.id==3">
+                                                    <option>Entretien du lieu de vie  </option>
+                                                    <option>Autonomie & Mobilité </option>
+                                                    <option>Sécurité & Adaptation de l’habitat </option>
+                                                    <option >Handicap & Maladies chroniques </option>
+                                                </select>
+
+                                                <select class="form-control"  required [(ngModel)]="tutorial.libelle"  *ngIf="currentcat.id==4">
+                                                    <option>Aménagement intérieur  </option>
+                                                    <option>Aménagement extérieur  </option>
+                                                    <option>Sécurité et domotique  </option>
+                                                </select>
+
+                                                <select class="form-control"  required [(ngModel)]="tutorial.libelle"  *ngIf="currentcat.id==5">
+                                                    <option>Entretien de jardin  </option>
+                                                    <option>Aménagement & création de jardin  </option>
+                                                    <option>Nettoyage des extérieurs  </option>
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <label class="form-control-label">Date du service</label>
+                                                <div class="input-group">
+                                                    <input id="dateOfBirth" class="form-control" placeholder="dd/mm/yyyy" name="dp" ngbDatepicker
+                                                           #dp="ngbDatepicker" required [(ngModel)]="tutorial.date" >
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-danger calendar" (click)="dp.toggle()"
+                                                                type="button"><i class="fa fa-calendar"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 mb-6">
+                                            <label class="form-control-label" >Heure de début service</label>
+                                            <ngb-timepicker [(ngModel)]="tutorial.heure_deb" [meridian]="meridian" required></ngb-timepicker>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 mb-6">
+                                            <label class="form-control-label" >Heure de fin service</label>
+
+                                            <ngb-timepicker [(ngModel)]="tutorial.heure_fin" [meridian]="meridian"required></ngb-timepicker>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-lg-6 col-md-6 mb-6">
+                                            <label class="form-control-label" >Prix en dinars</label>
+                                            <div class="input-group ">
+                                                <input type="text" class="form-control" placeholder="10"[(ngModel)]="tutorial.prix" required>
+                                                <div class="input-group-append"><span class="input-group-text">DT</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-lg-6 col-md-6 mb-6" >
+                                            <label class="form-control-label " >L'état du service</label>
+                                            <div class="form-group" >
+
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" name="radio" class="custom-control-input radio-danger" id="radioPrimary"  disabled checked  >
+                                                    <label class="custom-control-label" for="radioPrimary">Non validé </label>
+                                                </div>
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" name="radio" class="custom-control-input radio-success" id="radioSuccess" disabled >
+                                                    <label class="custom-control-label" for="radioSuccess">Validé</label>
+                                                </div>
+
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" name="radio" class="custom-control-input radio-primary " id="radioDanger" disabled>
+                                                    <label class="custom-control-label" for="radioDanger">Prise </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="form-control-label">Description du service</label>
+                                        <textarea  class="form-control"  required [(ngModel)]="tutorial.description"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer" *ngIf="!submitted">
+                                    <button (click)="updateTutorial(tutorial,i)" class="btn btn-outline-danger w-100p mb-1 mr-1">Modifier</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+
+
+
+        </div>
+        </div>
+</div>
+<!--<button >-->
+<!--    Show Toaster-->
+<!--</button>-->

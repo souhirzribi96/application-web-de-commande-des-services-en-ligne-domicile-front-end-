@@ -1,0 +1,167 @@
+<div  class=" card__category" style="color: black">
+<div class="col-lg-6 mb-4"  style="width: 1100px" *ngFor="let element of listeuserser ;let i = index"
+     [class.active]="i == ind">
+    <div widget class="card border-0 box-shadow"  style="width: 1200px" *ngIf="element.id_role==2">
+        <div class="card-header transparent border-0 text-muted">
+    Etudiant qui propose le service :{{element.nom}} {{element.prenom}}
+
+            <button type="submit" class="badge badge-danger" data-toggle="modal"
+                    data-target="#modalsup"(click)="setActiveTutorial(element, ind, modal) " >
+                Supprimer cette étudiant</button>
+
+            <button type="submit" class="badge badge-primary" data-toggle="modal"
+                    data-target="#modal"(click)="setActiveTutorial(element, ind,modaldetai) " >
+                Voir les avis apropos de cette étudiant</button>
+        </div>
+        <div class="card-body pt-0 widget-body"  >
+            <table class="table table-striped" >
+                <thead class="card__author" title="author">
+                <tr >
+                    <th>Pseudo</th>
+                    <th>Cin</th>
+                    <th>Email</th>
+                    <th>Sexe</th>
+                    <th>Telephone</th>
+                    <th>Université</th>
+                    <th colspan="10">Services </th>
+                    <th colspan="10">Services Prise par</th>
+                </tr>
+                </thead>
+                <tbody class="card__author" title="author">
+                <tr >
+                    <th scope="row" >{{element.username}}</th>
+                    <td>{{element.cin}}</td>
+                    <td>{{element.email}}</td>
+                    <td>{{element.sexe}}</td>
+                    <td>{{element.tel}}</td>
+                    <td>{{element.universite}}</td>
+                  <td colspan="10">
+                     <div *ngFor="let serv of liste ; let i = index"
+                      [class.active]="i == ind">
+                      <div *ngIf="serv.id_etd==element.id ">
+                          <span class="card__by" >
+         <a class="card__author" data-toggle="modal" data-target="#modalAbandonedCart"
+            style=" color: blue; text-decoration: underline ; ;font-size: 0.8em;" (click)="setActive(serv, ind)">
+          <button type="submit" class="badge badge-primary"  class="card__author" data-toggle="modal" data-target="#modalAbandonedCart"
+                  style=" color: blue;  font-size: 0.8em;" (click)="setActive(serv, ind)">
+             {{serv.libelle}}
+          </button></a>
+                          </span>
+                      </div>
+                     </div>
+                  </td>
+                    <td>
+                        <div *ngFor="let serv of liste" style="padding: 1px">
+                            <div *ngIf="serv.id_etd==element.id ">
+                                <div *ngIf="serv.id_user == null  ">Non Réservé</div>
+                                <div *ngIf="serv.id_user!= null">
+<!--                                    <a class="card__author" title="author" data-toggle="modal" data-target="#modalAbandonedCart"-->
+<!--                                       style=" color: blue; text-decoration: underline ; ;font-size: 0.8em;">-->
+<!--                                        Lien de l'utilisateur {{serv.id_user}}-->
+<!--                                        <i class="fa fa-external-link"></i>-->
+<!--                                    </a>-->
+                                    <span class="card__by" >
+                <a routerLink="/pages/user/{{ serv.id_user }}"href="/pages/categories/{{ serv.id_user }}"
+                   class="card__author" title="author" style="color: blue">
+                    Consulter le profile du <strong>Client </strong> <i class="fa fa-external-link"></i>  </a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <ng-template #modal >
+        <div class="modal-header">
+            <p   style="color: #ff5642" >
+                Supprimer l'étudiant : <strong>{{element.nom}} {{element.prenom}}</strong>
+            </p>
+            <hr>
+            <button type="button" class="close" aria-label="Close"  (click)="closeModal()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" style=" background-color: white">
+
+            Vous étes sur ?
+        </div>
+        <div class="modal-footer" >
+            <button (click)="deleteTutorial(element, ind)" class="btn btn-outline-danger w-100p mb-1 mr-1">Confirmer</button>
+        </div>
+</ng-template>
+
+    <ng-template #modaldetai >
+        <div class="modal-header">
+            <p   style="color: #ff5642" >
+                Avis apropos l'étudiant : <strong>{{element.nom}} {{element.prenom}}</strong>
+            </p>
+            <hr>
+            <button type="button" class="close" aria-label="Close"  (click)="closeModal()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" style=" background-color: white ">
+            <table class="table table-hover" >
+                <tbody>
+                <tr *ngFor="let notee of notes">
+                    <div *ngIf=" notee.id_etd==element.id">
+                        <th scope="row">Avis: </th>
+                        <td >{{notee.noter}}</td>
+                    </div>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer" >
+            <button (click)="closeModal()" class="btn btn-outline-danger w-100p mb-1 mr-1">Fermer </button>
+
+        </div>
+</ng-template>
+
+
+</div>
+<!--</div>-->
+<!-- Button trigger modal-->
+
+<div class="modal fade right" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true" data-backdrop="false"  *ngIf="showAdminBoard">
+    <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header card__category">
+                <p   style="color: #ff5642" >
+                    Service : {{serv.libelle}}
+                </p>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body" style=" background-image: url('../../../assets/X2oObC4.png')">
+             <strong>   <p class="card__category" style="color: black">Information a propos le service : </p></strong>
+                        <p class="card__author" title="author" style="margin-left: 100px ">
+                        <strong class="card__category" style="color: black">Date : </strong> {{ serv.date }} <br>
+                        <strong class="card__category" style="color: black">Heure début  : </strong>{{ serv.heure_deb }}<br>
+                        <strong class="card__category" style="color: black">Heure fin  : </strong> {{ serv.heure_fin }}<br>
+                        <strong class="card__category" style="color: black">Prix (Dt) : </strong>{{ serv.prix }}<br>
+                        <strong class="card__category" style="color: black">Etat  : </strong><strong style="color: red"> {{ serv.etat }}</strong><br>
+                        <strong class="card__category" style="color: black">Description :</strong> {{ serv.description }}<br>
+                        <strong class="card__category" style="color: black">Date du publication :</strong>{{serv.createdAt}}
+                    </p>
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <a type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Fermer</a>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+</div>

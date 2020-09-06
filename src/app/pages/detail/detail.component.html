@@ -1,0 +1,88 @@
+<div class="container"  style="margin-left: 100px">
+    <div class="user-profile">
+        <div class="profile-header-background" style="background-image: url('../../../assets/cf.jpg');margin-top:100px;margin-left: 10000px">
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-info-left">
+                    <div class="text-center">
+                        <img  src='{{image}}' width="200px"
+                              alt="Avatar" class="avatar  rounded-circle">
+
+                        <h2 class="text-uppercase">  <strong>{{ user.username }}</strong>    </h2>
+                    </div>
+                    <div class="section font-italic">
+                        <h4>Intro</h4>
+                        <hr>
+                        <p> <strong ><i class="fa fa-envelope-o"></i></strong> {{ user.email }}</p>
+                        <p> <i class="fa fa-user-o"></i> {{ user.nom }} {{user.prenom }}</p>
+                        <p> <i class="fa fa-location-arrow"></i> {{ user.ville}}</p>
+                        <!--                    retinnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng-->
+                        <div *ngIf="showUserBoard">
+                            <hr>
+                            <p class="text-left fs-13 text-danger">Ne oubliez pas de donner votre feedback aprés le service</p>
+                       <div *ngIf="!submitted">
+                        <div class="form-group" [class.has-success]="ctrlFormIntegration.valid"
+                                                [class.has-danger]="ctrlFormIntegration.invalid">
+                            <ngb-rating [rate]="moy" [(ngModel)]="note.num"></ngb-rating><pre>Note Moyenne: <b>{{ note.num }}</b></pre>
+                            <!--                                <div class="form-control-feedback">-->
+                            <!--                                    <div *ngIf="ctrlFormIntegration.valid">Merci!</div>-->
+                            <!--                                    <div *ngIf="ctrlFormIntegration.errors">Donnez votre avis</div>-->
+                            <!--                                </div>-->
+                        </div>
+                            <div class="form-group">
+                                <label for="donationinput7" class="sr-only">Note</label>
+                                <textarea id="donationinput7" rows="5" class="form-control square" name="message" required placeholder="Remarque" [(ngModel)]="note.noter"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline-danger btn-block"(click)="saveTutorial()">Envoyez</button>
+                            </div>
+                       </div>
+                        </div>
+<!--                            <hr>-->
+<!--                            <button class="btn btn-sm btn-outline-{{ ctrlFormIntegration.disabled ? 'danger' : 'success'}}" (click)="toggle()">-->
+<!--                                {{ ctrlFormIntegration.disabled ? "bontton déactivé" : " boutton active" }}-->
+<!--                            </button>-->
+<!--                            <button class="btn btn-sm btn-outline-primary" (click)="ctrlFormIntegration.setValue(null)">Supprimer</button>-->
+<!--                        retinnnnnnnnnnnnnnnnnnnnnnnnnng-->
+                    </div>
+                </div>
+            </div>
+            <!--partie eli fiha hajet mt3o -->
+            <div class="col-lg-6 mb-4">
+                <div class="card text-left" style="width: 700px ; margin-bottom: 500px" >
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" >Information personnel </a>
+<!--                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Vos services </a>-->
+                            <!--                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">2</a>-->
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent" >
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <h4 class=" font-italic " style="color: indianred">
+                                Hello  {{user.nom}} {{user.prenom}} !
+                            </h4><p class="font-weight-light"><strong>Voici votre information personnelle</strong></p>
+                            <hr>
+                            <p class="font-weight-light"><strong>N°CIN: </strong> {{user.cin}}</p>
+                            <p class="font-weight-light"><strong>SEXE: </strong>{{user.sexe}}</p>
+                            <p class="font-weight-light"><strong>DATE DE NAISSANCE: </strong> {{user.datenais}}</p>
+                            <p class="font-weight-light" *ngIf="user.id_role==2"><strong>N° TELEPHONE: </strong>{{user.tel}}</p>
+                            <p class="font-weight-light" *ngIf="user.id_role==2"><strong>ETABLISSEMENT SCOLAIRE: </strong>{{user.universite}}</p>
+                            <p class="font-weight-light" *ngIf="user.id_role==2"><strong>ETAT SANTE: </strong>{{user.sante}}</p>
+
+                            <p class="font-weight-light" *ngIf="user.id_role==1"><strong>CODE POSTAL: </strong>{{user.codepostal}}</p>
+                            <p class="font-weight-light" *ngIf="user.id_role==1"><strong>ADRESSE EXACTE: </strong>{{user.addresse}}</p>
+
+                        </div>
+<!--                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">.ssss..</div>-->
+                        <!--                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">..222.</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #loggedOut>
+    Please login.
+</ng-template>

@@ -1,0 +1,397 @@
+.login-container{
+    position: absolute;
+    .card{
+        .card-header{
+            width: 100px;
+            height: 80px;
+            margin: 0 auto;
+            margin-top: -40px;
+            border-radius: 50%;
+            font-size: 36px;
+        }
+    }
+}
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+// Form animation css
+#signInSignUpBox {
+    position: relative;
+    background-color: pink;
+    width: 1000px;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: 100px;
+    margin-top: 20px;
+
+}
+#overlay {
+    left: 0;
+    border: 1px solid blue;
+    width: 50%;
+    height: 140%;
+    position: relative;
+    overflow: hidden;
+    background-color: red;
+}
+#signUp {
+    transform: translateX(0);
+    transition-duration: 1s;
+}
+#signIn {
+    transform: translateX(20%);
+    transition-duration: 1s;
+}
+
+.overlay-moveHalfRight #signIn {
+    transform: translateX(0);
+    transition-duration: 1s;
+}
+
+.overlay-moveHalfRight {
+    animation-name: move-slide-right;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+}
+
+@keyframes move-slide-right {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 50%;
+    }
+}
+
+.overlayInner-moveHalfLeft #signUp {
+    transform: translateX(-20%);
+    transition-duration: 1s;
+}
+
+.overlay-moveHalfLeft {
+    animation-name: move-slide-back-right;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+}
+
+@keyframes move-slide-back-right {
+    0% {
+        left: 50%;
+    }
+    100% {
+        left: 0;
+    }
+}
+
+#overlayInner {
+    position: absolute;
+    width: 200%;
+    display: flex;
+}
+
+.overlayInner-moveHalfLeft {
+    animation-name: move-slide-left;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+}
+
+@keyframes move-slide-left {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -100%;
+    }
+}
+
+.overlayInner-moveHalfRight {
+    animation-name: move-slide-back-left;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+}
+
+@keyframes move-slide-back-left {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 0;
+    }
+}
+
+#overlayInner > div {
+    flex: 1;
+}
+
+#forms {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -100;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+#forms > div {
+    flex: 1;
+    background-color: lightgreen;
+}
+#signUpForm,
+#signInForm {
+    overflow: hidden;
+}
+#signUpForm .holder {
+    transform: translateX(0);
+    transition-duration: 1s;
+}
+#signUpForm.shiftLeft .holder {
+    transform: translateX(-100%);
+    transition-duration: 1s;
+}
+#signInForm .holder {
+    transform: translateX(0);
+    transition-duration: 1s;
+}
+#signInForm.shiftRight .holder {
+    transform: translateX(100%);
+    transition-duration: 1s;
+}
+
+
+
+// Form styling
+//.container {
+//    background-image : url('../../../assets/istockphoto-624878906-612x612.jpg');
+//    background-repeat: no-repeat;
+//    background-size: cover;
+//    weight:1500px
+//}
+#signInForm,
+#signUpForm {
+    border-radius: 20px;
+    text-align: center;
+}
+#signUpForm h1{
+    margin-top: 3.5rem;
+}
+#signInForm h1 {
+    margin-top: 2.5rem;
+}
+h1 {
+    margin-top:100px;
+}
+#signInForm p,
+#signUpForm p {
+    font-size: 0.8rem;
+    margin-top: 1.6rem;
+}
+#signInForm input,
+#signUpForm input {
+  margin:0;
+  background-color: #fff;
+    margin-top: 0.1rem;
+    line-height: 35px;
+    padding: 5px 10px;
+    width: 80%;
+  height: var(--input-height);
+  outline: none;
+  border-radius: 7px;
+  font-size: 0.90em;
+  border: solid 2px #EAEAEA;
+  box-sizing: border-box;
+  transition: border-color .10s;
+}
+#signInForm button,
+#signUpForm button {
+    text-transform: uppercase;
+    color: #fff;
+    background-color: red;
+    border-radius: 20px;
+    border: 1px solid #FF4B2B;
+    padding: 10px 40px;
+    cursor: pointer;
+}
+#signUpForm button {
+    margin-top: 20px;
+}
+#signInForm button:focus,
+#signUpForm button:focus {
+    outline: none;
+}
+#signInForm button:active,
+#signUpForm button:active {
+    padding: 9px 38px;
+    transition-duration: 0.1s;
+}
+#signInSignUpBox {
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 10px 10px 13px -6px rgba(0,0,0,0.75);
+}
+a.social-media-button {
+    display: inline-block;
+    border: 1px solid rgb(189, 189, 189);
+    text-align: center;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    color: rgb(0, 0, 0);
+}
+#forms > div {
+    background-color: #fff;
+}
+#overlay {
+    //background: linear-gradient(to bottom, rgba(246,41,12,1) 0%, rgb(240, 196, 190) 100%);
+    border: none;
+    border-radius: 20px;
+    background-image : url('../../../assets/login.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#signUp,
+#signIn {
+    text-align: center;
+    padding: 140px 40px;
+    color: #fff;
+}
+#signUp button,
+#signIn button {
+    margin-top: 20px;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: transparent;
+    border-radius: 20px;
+    border: 1px solid rgb(255, 255, 255);
+    padding: 10px 40px;
+    cursor: pointer;
+
+}
+#signUp button:focus,
+#signIn button:focus {
+    //outline: none;
+    display:inline-block;
+
+}
+#foo{
+    display:none;
+}
+.quantite-clic {
+    display: block !important;
+}
+.quantite-cl {
+    display: none !important;
+}
+#form{
+  display:none;
+}
+.form-control {
+    width: 410px;
+}
+/*# sourceMappingURL=style.css.map */
+.file-upload{
+    .file-upload-btn{
+        position: absolute;
+        width: 500%;
+        height: 20px;
+        z-index: 9;
+        opacity: 0;
+    }
+    .delete-file{
+        position: absolute;
+        right: 100px;
+        top: 8px;
+        font-size: 16px;
+        opacity: .8;
+        cursor: pointer;
+        z-index: 99;
+        visibility: hidden;
+    }
+    &:hover .delete-file{
+        visibility: visible;
+    }
+    div .img-plus-moins{
+        display:inline-block;
+
+    }
+}
+.img-upload-btn{
+    position: absolute;
+    padding: 0;
+    width: calc(100% - 30px);
+    height: 38px;
+    opacity: 0;
+}
+
+.image-wrapper{
+    height: 100px;
+    width:100px;
+.delete-img{
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        border: 2px solid #fff;
+        color: #fff;
+        padding: 3px 5px;
+        border-radius: 50%;
+        visibility: hidden;
+        cursor: pointer;
+    }
+    &:hover .delete-img{
+        visibility: visible;
+    }
+}
+.profile-user-img{
+    width: 125px;
+    //box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+}
+
+.avatar-upload {
+    position: relative;
+    max-width: 205px;
+    margin: auto;
+    margin-bottom: 20px;
+
+    .avatar-edit {
+        z-index: 1;
+        input {
+            display: none;
+            + label {
+                display: inline-block;
+                width: 34px;
+                height: 34px;
+                margin-bottom: 0;
+                border-radius: 100%;
+                background: #FFFFFF;
+                border: 1px solid #d2d6de;
+                //box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+                cursor: pointer;
+                font-weight: normal;
+                transition: all .2s ease-in-out;
+                &:hover {
+                    background: #f1f1f1;
+                    border-color: #d6d6d6;
+                }
+                &:after {
+                    content: "\f030";
+                    font-family: 'FontAwesome';
+                    color: red;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    text-align: center;
+                    line-height: 34px;
+                    margin: auto;
+                }
+            }
+        }
+    }
+}

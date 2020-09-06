@@ -1,0 +1,160 @@
+<h2>Form Wizard</h2>
+<p class="text-muted">If you want to be more selective about what fields appear on the form, you can use the Form Wizard instead.</p>
+
+<div class="row">
+    <div class="col">
+        <div widget class="card border-0 box-shadow">
+            <div *ngIf="!confirmed" class="card-body widget-body">
+                <div class="row">
+                    <div *ngFor="let step of steps; let last = last" class="col-md-3 col-sm-6 col-12 step text-center">
+                        <div class="d-flex justify-content-center align-items-center text-white pl-2 pr-2 mb-2 rounded step-content" [class.bg-success]="step.valid" [class.bg-danger]="step.active" [class.confirmed]="confirmed">
+                            <i class="fa {{ step.icon }} mr-2" aria-hidden="true"></i>
+                            <span class="step-name">{{step.name}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngFor="let step of steps" [hidden]="!step.active" class="col">
+                    <div class="row">
+                        <h4 class="mt-3 mb-3"><i class="fa {{ step.icon }}"></i> {{step.name}}</h4>
+                    </div>
+
+                    <form *ngIf="step.name=='Personal Information'" [formGroup]="personalForm" class="row bg-light pt-2">
+                        <div class="form-group col-md-2">
+                            <label class="form-control-label">Salutation</label>
+                            <select formControlName="salutation" class="form-control">
+                                <option>Mr</option>
+                                <option>Mrs</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-5" [ngClass]="{'has-danger' : step.hasError && personalForm.get('firstname').hasError('required'), 'has-success' : !personalForm.get('firstname').hasError('required') }">
+                            <label class="form-control-label">First Name</label>
+                            <input formControlName="firstname" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('firstname').hasError('required'), 'form-control-success' :  !personalForm.get('firstname').hasError('required') }" type="text">
+                            <small class="text-danger" *ngIf="step.hasError && personalForm.get('firstname').hasError('required')">First Name is required</small>
+                        </div>
+
+                        <div class="form-group col-md-5" [ngClass]="{'has-danger' : step.hasError && personalForm.get('lastname').hasError('required'), 'has-success' : !personalForm.get('lastname').hasError('required') }">
+                            <label class="form-control-label">Last Name</label>
+                            <input formControlName="lastname" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('lastname').hasError('required'), 'form-control-success' :  !personalForm.get('lastname').hasError('required') }" type="text">
+                            <small class="text-danger" *ngIf="step.hasError && personalForm.get('lastname').hasError('required')">Last Name is required</small>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label class="form-control-label">Gender</label>
+                            <select formControlName="gender" class="form-control">
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-5" [ngClass]="{'has-danger' : (step.hasError && personalForm.get('email').hasError('required')) || (step.hasError && personalForm.get('email').hasError('email')),
+                                                                     'has-success' : !personalForm.get('email').hasError('required') && !personalForm.get('email').hasError('email')}">
+                            <label class="form-control-label">Contact email</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-envelope"></i></span></div>
+                                <input formControlName="email" class="form-control" [ngClass]="{'form-control-danger' : (step.hasError && personalForm.get('email').hasError('required')) || (step.hasError && personalForm.get('email').hasError('email')),
+                                                                                                'form-control-success' :  !personalForm.get('email').hasError('required') && !personalForm.get('email').hasError('email')}" type="text">
+                            </div>
+                            <small class="text-danger" *ngIf="step.hasError && personalForm.get('email').hasError('required')">Email is required</small>
+                            <small class="text-danger" *ngIf="step.hasError && personalForm.get('email').hasError('email')">Invalid email address</small>
+                        </div>
+
+                        <div class="form-group col-md-4" [ngClass]="{'has-danger' : step.hasError && personalForm.get('phone').hasError('required'), 'has-success' : !personalForm.get('phone').hasError('required') }">
+                            <label class="form-control-label">Phone</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-phone"></i></span></div>
+                                <input formControlName="phone" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('phone').hasError('required'), 'form-control-success' :  !personalForm.get('phone').hasError('required') }" type="number">
+                            </div>
+                            <small class="text-danger" *ngIf="step.hasError && personalForm.get('phone').hasError('required')">Phone is required</small>
+                        </div>
+
+                        <div class="form-group col-md-2" [ngClass]="{'has-danger' : step.hasError && personalForm.get('zipcode').hasError('required'), 'has-success' : !personalForm.get('zipcode').hasError('required') }">
+                            <label class="form-control-label">Zip Code</label>
+                            <input formControlName="zipcode" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('zipcode').hasError('required'), 'form-control-success' :  !personalForm.get('zipcode').hasError('required') }" type="text">
+                            <small class="text-danger" *ngIf="step.hasError && personalForm.get('zipcode').hasError('required')">required</small>
+                        </div>
+
+                        <div class="form-group col-md-5" [ngClass]="{'has-danger' : step.hasError && personalForm.get('country').hasError('required'), 'has-success' : !personalForm.get('country').hasError('required') }">
+                            <label class="form-control-label">Select Country</label>
+                            <select formControlName="country" class="form-control" [ngClass]="{'form-control-danger' : step.hasError && personalForm.get('country').hasError('required'), 'form-control-success' : !personalForm.get('country').hasError('required') }">
+                                <option>USA</option>
+                                <option>Canada</option>
+                                <option>Mexico</option>
+                                <option>UK</option>
+                                <option>France</option>
+                                <option>Italy</option>
+                            </select>
+                            <small class="text-danger" *ngIf="step.hasError && personalForm.get('country').hasError('required')">Country is required</small>
+                        </div>
+
+                        <div class="form-group col-md-5">
+                            <label class="form-control-label">Select State</label>
+                            <select formControlName="state" class="form-control">
+                                <option>Arkansas</option>
+                                <option>Texas</option>
+                                <option>California</option>
+                                <option>Florida</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col">
+                            <label class="form-control-label">Address</label>
+                            <textarea formControlName="address" class="form-control"></textarea>
+                        </div>
+                    </form>
+
+
+                    <div *ngIf="step.name=='Confirm Your Details'" class="row bg-light pt-2">
+                        <div class="col-2"><strong class="text-truncate">Username</strong></div>
+                        <div class="col-10"><i>{{details.username}}</i></div>
+                        <div class="col-2"><strong class="text-truncate">Full Name</strong></div>
+                        <div class="col-10"><i>{{details.fullname}}</i></div>
+                        <div class="col-2"><strong class="text-truncate">Gender</strong></div>
+                        <div class="col-10"><i>{{details.gender}} &nbsp;</i></div>
+                        <div class="col-2"><strong class="text-truncate">Contact Email</strong></div>
+                        <div class="col-10"><i>{{details.email}}</i></div>
+                        <div class="col-2"><strong class="text-truncate">Phone NO.</strong></div>
+                        <div class="col-10"><i>{{details.phone}}</i></div>
+                        <div class="col-2"><strong class="text-truncate">Address</strong></div>
+                        <div class="col-10"><i>{{details.address}} &nbsp;</i></div>
+                        <div class="col-2"><strong class="text-truncate">Country</strong></div>
+                        <div class="col-10"><i>{{details.country}}</i></div>
+                        <div class="col-2"><strong class="text-truncate">Zip Code</strong></div>
+                        <div class="col-10"><i>{{details.zipcode}}</i></div>
+                        <div class="col-2"><strong class="text-truncate">Card Type</strong></div>
+                        <div class="col-10"><i>{{details.cardtype}}</i></div>
+                        <div class="col-2"><strong class="text-truncate">Card Number</strong></div>
+                        <div class="col-10"><i>{{details.cardnumber}}</i></div>
+                    </div>
+
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <button class="btn btn-primary pull-left" (click)="prev()"><i class="fa fa-chevron-left arrow"></i>&nbsp; Prev Step</button>
+                        <button *ngIf="!steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="next()">Next Step &nbsp;<i class="fa fa-chevron-right arrow"></i></button>
+                        <button *ngIf="steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="confirm()">Confirm &nbsp;<i class="fa fa-check arrow"></i></button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div *ngIf="confirmed" class="card-body widget-body">
+
+                <div class="col bg-light p-5">
+                    <div class="d-flex justify-content-center align-items-center flex-column bg-light confirmed-content">
+                        <i class="fa fa-check text-success" aria-hidden="true"></i>
+                        <h2 class="p-3">That's all, thank you!</h2>
+                        <h5 class="p-3">Order number is: 308521089</h5>
+                        <p class="p-2">You will receive an email confirmation shortly at {{this.details.email}}</p>
+                        <i class="fa fa-print text-muted" aria-hidden="true"></i>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
